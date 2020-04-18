@@ -1,14 +1,21 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 export const Header = () => {
   return (
     <StyledHeader>
       <Nav>
         <ul>
-          <li className="active">Home</li>
-          <li>New Question</li>
-          <li>Leaderboard</li>
+          <li className="active">
+            <Link to="/"> Home </Link>
+          </li>
+          <li>
+            <Link to="/addNew"> New Question </Link>
+          </li>
+          <li>
+            <Link to="/leaderboard"> Leaderboard </Link>
+          </li>
         </ul>
       </Nav>
       <Logout>Logout</Logout>
@@ -42,7 +49,19 @@ const Nav = styled.div`
       margin-right: 30px;
     }
 
-    .active {
+    li a {
+      font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue",
+        "Helvetica", "Arial", sans-serif;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 19px;
+      color: #ffffff;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .active a {
       font-weight: 700;
       text-decoration: underline;
     }

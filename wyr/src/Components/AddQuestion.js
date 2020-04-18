@@ -4,9 +4,9 @@ import { Button } from "./Button";
 import { Heading } from "./Heading.js";
 import { WhiteBox } from "./WhiteBox.js";
 
-export const NewQuestion = () => {
+export const AddQuestion = () => {
   return (
-    <NewQuestionHolder>
+    <NewQuestion>
       <WhiteBox>
         <span>Add new question:</span>
         <Heading hstyle="light" color="black">
@@ -16,7 +16,7 @@ export const NewQuestion = () => {
         <input type="text" placeholder="Add option 2" name="option2"></input>
         <Button BtnStyle="red">Publish</Button>
       </WhiteBox>
-    </NewQuestionHolder>
+    </NewQuestion>
   );
 };
 
