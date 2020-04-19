@@ -1,39 +1,27 @@
-import React from "react";
-import styled, { css } from "styled-components";
+import React, { useEffect } from "react";
+import styled from "styled-components";
 import { Heading } from "./Heading.js";
-import { Paragraph } from "./Paragraph.js";
 import UserImg from "../Images/User1.png";
+import { useSelector, useDispatch } from "react-redux";
+import { SharedThunks } from "../store/thunks/Shared.js";
 
 export const Dashboard = () => {
+  const questions = useSelector(
+    (state) => state.SharedActionsReducer.questions
+  );
+  const dispatch = useDispatch();
+
   return (
     <DashboardWrapper>
+      {questions?.loading == "started"
+        ? "LOADING..."
+        : JSON.stringify(questions)}
       <Categories>
         <Heading>Unanswered</Heading>
         <Decoration></Decoration>
         <Heading className="inactive-h">Answered</Heading>
       </Categories>
       <Flex>
-        <QuestionPreview>
-          <UserImage style={{ backgroundImage: `url(${UserImg})` }}></UserImage>
-          <span>Rosemary Wilson asks:</span>
-          <Heading hstyle="light" color="black">
-            Would you rather kiss a frog or...
-          </Heading>
-        </QuestionPreview>
-        <QuestionPreview>
-          <UserImage style={{ backgroundImage: `url(${UserImg})` }}></UserImage>
-          <span>Rosemary Wilson asks:</span>
-          <Heading hstyle="light" color="black">
-            Would you rather kiss a frog or...
-          </Heading>
-        </QuestionPreview>
-        <QuestionPreview>
-          <UserImage style={{ backgroundImage: `url(${UserImg})` }}></UserImage>
-          <span>Rosemary Wilson asks:</span>
-          <Heading hstyle="light" color="black">
-            Would you rather kiss a frog or...
-          </Heading>
-        </QuestionPreview>
         <QuestionPreview>
           <UserImage style={{ backgroundImage: `url(${UserImg})` }}></UserImage>
           <span>Rosemary Wilson asks:</span>

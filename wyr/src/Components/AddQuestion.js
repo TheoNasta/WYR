@@ -3,8 +3,11 @@ import styled, { css } from "styled-components";
 import { Button } from "./Button";
 import { Heading } from "./Heading.js";
 import { WhiteBox } from "./WhiteBox.js";
+import { useDispatch } from "react-redux";
 
 export const AddQuestion = () => {
+  const dispatch = useDispatch();
+
   return (
     <NewQuestion>
       <WhiteBox>

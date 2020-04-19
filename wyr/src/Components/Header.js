@@ -29,6 +29,7 @@ const StyledHeader = styled.div`
   padding-top: 15px;
   display: flex;
   justify-content: space-between;
+  z-index: 10;
 `;
 const Nav = styled.div`
   ul {

@@ -1,20 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import { Heading } from "./Heading.js";
 import { Paragraph } from "./Paragraph.js";
 import { UserBox } from "./UserBox.js";
+import { useDispatch, useSelector } from "react-redux";
+import { SharedActions } from "../store/actions/Shared.js";
+import { SharedThunks } from "../store/thunks/Shared.js";
+import { UserThunks } from "../store/thunks/Users.js";
 
 export const LogInPage = () => {
+  const dispatch = useDispatch();
+  const userList = useSelector((state) => state.SharedActionsReducer.users);
+
+  useEffect(() => {
+    dispatch(SharedThunks.loadUsers());
+  }, []);
+
+  const onUserSelect = (u) => {
+    dispatch(UserThunks.login(u));
+  };
+
   return (
     <StyledLogIn>
-      <LeftSide>
-        <Heading>Would you rather?</Heading>
-        <Paragraph>Choose User</Paragraph>
-        <UserBox />
-      </LeftSide>
-      <RightSide>
-        <img src={require("../Images/Illustration-LogIn.png")}></img>
-      </RightSide>
+      {userList?.loading == "done" ? (
+        <>
+          <LeftSide>
+            <Heading>Would you rather?</Heading>
+            <Paragraph>Choose User</Paragraph>
+            <UserBox users={userList.list} selectUser={onUserSelect} />
+          </LeftSide>
+          <RightSide>
+            <img src={require("../Images/Illustration-LogIn.png")}></img>
+          </RightSide>
+        </>
+      ) : (
+        "LOADING"
+      )}
     </StyledLogIn>
   );
 };

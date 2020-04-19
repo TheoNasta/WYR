@@ -1,8 +1,12 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-export const Button = ({ children, BtnStyle }) => {
-  return <StyledBtn BtnStyle={BtnStyle}>{children}</StyledBtn>;
+export const Button = ({ children, BtnStyle, ...prop }) => {
+  return (
+    <StyledBtn {...prop} BtnStyle={BtnStyle}>
+      {children}
+    </StyledBtn>
+  );
 };
 
 const StyledBtn = styled.div`

@@ -4,18 +4,28 @@ import { Heading } from "./Heading.js";
 import { Paragraph } from "./Paragraph.js";
 import UserImg from "../Images/User1.png";
 
-export const UserBox = () => {
-  return (
-    <UserBoxHolder>
-      <UserImage style={{ backgroundImage: `url(${UserImg})` }}></UserImage>
-      <UserData>
-        <Paragraph color="black" weight="semi" size="big">
-          Rosemary Wilson
-        </Paragraph>
-        <span>Continue ></span>
-      </UserData>
-    </UserBoxHolder>
-  );
+export const UserBox = ({ users, selectUser }) => {
+  return Object.keys(users).map((k) => {
+    const u = users[k];
+    return (
+      <UserBoxHolder
+        key={k}
+        onClick={() => {
+          selectUser(u);
+        }}
+      >
+        <UserImage
+          style={{ backgroundImage: `url(${u.avatarURL})` }}
+        ></UserImage>
+        <UserData>
+          <Paragraph color="black" weight="semi" size="big">
+            {u.name}
+          </Paragraph>
+          <span>Continue ></span>
+        </UserData>
+      </UserBoxHolder>
+    );
+  });
 };
 
 const UserBoxHolder = styled.div`
