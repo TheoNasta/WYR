@@ -1,24 +1,46 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { UsersActions } from "../store/actions/Users";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Header = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.UsersActionsReducer.loggedInUser);
+
+  if (!user) return null;
   return (
     <StyledHeader>
       <Nav>
         <ul>
-          <li className="active">
-            <Link to="/"> Home </Link>
+          <li>
+            <NavLink exact activeClassNam="active" to="/">
+              {" "}
+              Home
+            </NavLink>
           </li>
           <li>
-            <Link to="/addNew"> New Question </Link>
+            <NavLink activeClassNam="active" to="/addNew">
+              {" "}
+              New Question{" "}
+            </NavLink>
           </li>
           <li>
-            <Link to="/leaderboard"> Leaderboard </Link>
+            <NavLink activeClassNam="active" to="/leaderboard">
+              {" "}
+              Leaderboard{" "}
+            </NavLink>
           </li>
         </ul>
       </Nav>
-      <Logout>Logout</Logout>
+      <Logout
+        onClick={() => {
+          dispatch(UsersActions.logout({}));
+        }}
+      >
+        {" "}
+        Logout
+      </Logout>
     </StyledHeader>
   );
 };
@@ -31,6 +53,11 @@ const StyledHeader = styled.div`
   justify-content: space-between;
   z-index: 10;
   position: relative;
+
+  .active {
+    font-weight: 700;
+    text-decoration: underline;
+  }
 `;
 const Nav = styled.div`
   ul {
@@ -61,11 +88,6 @@ const Nav = styled.div`
       color: #ffffff;
       cursor: pointer;
       text-decoration: none;
-    }
-
-    .active a {
-      font-weight: 700;
-      text-decoration: underline;
     }
   }
 `;
