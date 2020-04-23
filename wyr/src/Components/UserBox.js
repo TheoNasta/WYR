@@ -1,6 +1,5 @@
 import React from "react";
-import styled, { css } from "styled-components";
-import { Heading } from "./Heading.js";
+import styled from "styled-components";
 import { Paragraph } from "./Paragraph.js";
 
 export const UserBox = ({ users, selectUser }) => {

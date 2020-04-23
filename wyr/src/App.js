@@ -6,7 +6,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import "./App.css";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { LogInPage } from "./components/LogInPage.js";
 import { Header } from "./components/Header.js";
 import { Dashboard } from "./components/Dashboard.js";
@@ -27,7 +27,7 @@ function App() {
   const users = useSelector((state) => state.UsersActionsReducer.users);
 
   useEffect(() => {
-    if (questions?.loading != "done" && users?.loading != "done") {
+    if (questions?.loading !== "done" && users?.loading !== "done") {
       dispatch(QuestionsThunks.loadQuestions());
       dispatch(UserThunks.loadUsers());
     }

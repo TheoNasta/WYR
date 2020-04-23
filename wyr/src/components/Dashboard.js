@@ -58,7 +58,7 @@ export const Dashboard = () => {
             </Heading>
             <Decoration></Decoration>
             <Heading
-              className={filter == "unanswered" && "inactive-h"}
+              className={filter === "unanswered" && "inactive-h"}
               onClick={
                 filter === "unanswered"
                   ? () => setFilter("answered")

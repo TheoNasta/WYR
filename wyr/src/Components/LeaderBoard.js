@@ -1,8 +1,7 @@
 import React from "react";
-import styled, { css } from "styled-components";
-import { Button } from "./Button";
+import styled from "styled-components";
 import { Heading } from "./Heading.js";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { LeaderBox } from "./LeaderBox";
 
 export const LeaderBoard = () => {
@@ -27,7 +26,7 @@ export const LeaderBoard = () => {
       </LeftSide>
 
       <RightSide>
-        <img src={"Images/leaderboard.png"}></img>
+        <img src={"Images/leaderboard.png"} alt="illustration"></img>
       </RightSide>
     </LeaderBoardWrapper>
   );

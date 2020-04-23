@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Button } from "./Button";
 import { Heading } from "./Heading.js";
 import { WhiteBox } from "./WhiteBox.js";
@@ -24,8 +24,8 @@ export const AddQuestion = () => {
   }, []);
 
   const renderForm = () => {
-    if (isQuestionSubmitted == "start") return <span> Loading...</span>;
-    if (isQuestionSubmitted == "done")
+    if (isQuestionSubmitted === "start") return <span> Loading...</span>;
+    if (isQuestionSubmitted === "done")
       return (
         <>
           <span> Question submitted!</span>
