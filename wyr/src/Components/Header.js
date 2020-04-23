@@ -20,7 +20,7 @@ export const Header = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink activeClassNam="active" to="/addNew">
+            <NavLink activeClassNam="active" to="/add">
               {" "}
               New Question{" "}
             </NavLink>
@@ -39,7 +39,7 @@ export const Header = () => {
         }}
       >
         {" "}
-        Logout
+        {user.name} / Logout
       </Logout>
     </StyledHeader>
   );

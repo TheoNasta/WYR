@@ -43,7 +43,7 @@ function App() {
               <Route exact path="/">
                 <Dashboard />
               </Route>,
-              <Route exact path="/addNew">
+              <Route exact path="/add">
                 <AddQuestion />
               </Route>,
               <Route path="/leaderboard">
