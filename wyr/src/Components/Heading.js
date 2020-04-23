@@ -1,9 +1,9 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-export const Heading = ({ children, hstyle, color }) => {
+export const Heading = ({ children, hstyle, color, ...props }) => {
   return (
-    <StyledHeading hstyle={hstyle} color={color}>
+    <StyledHeading hstyle={hstyle} color={color} {...props}>
       {children}
     </StyledHeading>
   );
@@ -24,6 +24,14 @@ const StyledHeading = styled.h1`
     css`
       font-weight: 400;
     `}
+  
+  ${(p) =>
+    p.onClick &&
+    css`
+      cursor: pointer;
+      transition: 0.3s ease all;
+    `}
+
   ${(p) =>
     p.color === "black" &&
     css`

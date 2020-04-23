@@ -1,23 +1,18 @@
 import { UsersActions } from "../actions/Users";
-
-const checkUserLoggedIn = () => {
-  return function (dispatch, getState) {
-    const loggedInUserJSON = localStorage.getItem("loggedInUser");
-    if (loggedInUserJSON) {
-      const loggedInUser = JSON.parse(loggedInUserJSON);
-      dispatch(UsersActions.setLoggedInUser(loggedInUser));
-    }
-  };
-};
-
-const login = (user) => {
-  return function (dispatch, getState) {
-    localStorage.setItem("loggedInUser", JSON.stringify(user));
-    checkUserLoggedIn()(dispatch, getState);
-  };
-};
+import { _getUsers } from "../../_Data";
 
 export const UserThunks = {
-  login,
-  checkUserLoggedIn,
+  loadUsers: () => {
+    return function (dispatch, getState) {
+      dispatch(UsersActions.loadUsersStart());
+      _getUsers().then((users) => {
+        dispatch(UsersActions.loadUsersFinish(users));
+      });
+    };
+  },
+  login: (user) => {
+    return function (dispatch, getState) {
+      dispatch(UsersActions.setLoggedInUser(user));
+    };
+  },
 };

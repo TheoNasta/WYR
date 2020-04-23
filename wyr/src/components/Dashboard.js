@@ -1,35 +1,89 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Heading } from "./Heading.js";
-import UserImg from "../Images/User1.png";
-import { useSelector, useDispatch } from "react-redux";
-import { SharedThunks } from "../store/thunks/Shared.js";
+import { QuestionPrev } from "./QuestionPrev.js";
+import { useSelector } from "react-redux";
 
 export const Dashboard = () => {
-  const questions = useSelector(
-    (state) => state.SharedActionsReducer.questions
+  const userId = useSelector(
+    (state) => state.UsersActionsReducer.loggedInUser.id
   );
-  const dispatch = useDispatch();
+  const questions = useSelector(
+    (state) => state.QuestionsActionsReducer.questions
+  );
+  const userList = useSelector((state) => state.UsersActionsReducer.users);
+  const [filter, setFilter] = useState("answered");
+
+  const answered =
+    questions?.list &&
+    Object.keys(questions.list).filter((k) => {
+      const q = questions.list[k];
+      if (
+        q.optionOne.votes.includes(userId) ||
+        q.optionTwo.votes.includes(userId)
+      )
+        return true;
+      return false;
+    });
+  const unanswered =
+    questions?.list &&
+    Object.keys(questions.list).filter((k) => {
+      const q = questions.list[k];
+      if (
+        q.optionOne.votes.includes(userId) ||
+        q.optionTwo.votes.includes(userId)
+      )
+        return false;
+      return true;
+    });
+
+  const shownQuestions = filter === "answered" ? answered : unanswered;
 
   return (
     <DashboardWrapper>
-      {questions?.loading == "started"
-        ? "LOADING..."
-        : JSON.stringify(questions)}
-      <Categories>
-        <Heading>Unanswered</Heading>
-        <Decoration></Decoration>
-        <Heading className="inactive-h">Answered</Heading>
-      </Categories>
-      <Flex>
-        <QuestionPreview>
-          <UserImage style={{ backgroundImage: `url(${UserImg})` }}></UserImage>
-          <span>Rosemary Wilson asks:</span>
-          <Heading hstyle="light" color="black">
-            Would you rather kiss a frog or...
-          </Heading>
-        </QuestionPreview>
-      </Flex>
+      {questions?.loading === "done" &&
+      userList?.loading === "done" &&
+      shownQuestions ? (
+        <>
+          <Categories>
+            <Heading
+              className={filter === "answered" && "inactive-h"}
+              onClick={
+                filter === "answered"
+                  ? () => setFilter("unanswered")
+                  : undefined
+              }
+            >
+              Unanswered ({unanswered.length})
+            </Heading>
+            <Decoration></Decoration>
+            <Heading
+              className={filter == "unanswered" && "inactive-h"}
+              onClick={
+                filter === "unanswered"
+                  ? () => setFilter("answered")
+                  : undefined
+              }
+            >
+              Answered ({answered.length})
+            </Heading>
+          </Categories>
+          <Flex>
+            {shownQuestions.map((k) => {
+              const q = questions.list[k];
+              console.log("This question:" + q);
+              return (
+                <QuestionPrev
+                  question={q}
+                  avatar={userList?.list[q.author].avatarURL}
+                />
+              );
+            })}
+          </Flex>
+        </>
+      ) : (
+        "LOADING..."
+      )}
     </DashboardWrapper>
   );
 };
@@ -63,61 +117,5 @@ const Decoration = styled.div`
 const Flex = styled.div`
   display: flex;
   flex-wrap: wrap;
-`;
-const QuestionPreview = styled.div`
-  width: 29%;
-  min-width: 220px;
-  background-color: white;
-  border-radius: 6px;
-  padding: 30px;
-  margin-top: 70px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin-left: 1.5%;
-  margin-right: 1.5%;
-
-  span {
-    font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica",
-      "Arial", sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 17px;
-    color: #a9a9a9;
-    margin-bottom: 10px;
-  }
-`;
-
-const UserImage = styled.div`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-size: cover;
-  margin-right: 15px;
-  margin-top: -66px;
-  border: 3px solid #e86d5a;
-  margin-bottom: 20px;
-  margin-left: auto;
-  margin-right: auto;
-`;
-
-const LeftSide = styled.div`
-  width: 50%;
-  align-items: center;
-  display: flex;
   justify-content: center;
-  flex-direction: column;
-  min-height: 100vh;
-`;
-const RightSide = styled.div`
-  width: 50%;
-  background-size: cover;
-  img {
-    width: 50%;
-    height: 100%;
-    position: absolute;
-    right: 0;
-  }
 `;

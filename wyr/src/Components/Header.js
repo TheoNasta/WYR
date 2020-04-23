@@ -30,6 +30,7 @@ const StyledHeader = styled.div`
   display: flex;
   justify-content: space-between;
   z-index: 10;
+  position: relative;
 `;
 const Nav = styled.div`
   ul {

@@ -1,20 +1,14 @@
-import React, { useEffect } from "react";
-import styled, { css } from "styled-components";
+import React from "react";
+import styled from "styled-components";
 import { Heading } from "./Heading.js";
 import { Paragraph } from "./Paragraph.js";
 import { UserBox } from "./UserBox.js";
 import { useDispatch, useSelector } from "react-redux";
-import { SharedActions } from "../store/actions/Shared.js";
-import { SharedThunks } from "../store/thunks/Shared.js";
 import { UserThunks } from "../store/thunks/Users.js";
 
 export const LogInPage = () => {
   const dispatch = useDispatch();
-  const userList = useSelector((state) => state.SharedActionsReducer.users);
-
-  useEffect(() => {
-    dispatch(SharedThunks.loadUsers());
-  }, []);
+  const userList = useSelector((state) => state.UsersActionsReducer.users);
 
   const onUserSelect = (u) => {
     dispatch(UserThunks.login(u));
@@ -22,7 +16,7 @@ export const LogInPage = () => {
 
   return (
     <StyledLogIn>
-      {userList?.loading == "done" ? (
+      {userList?.loading === "done" ? (
         <>
           <LeftSide>
             <Heading>Would you rather?</Heading>
@@ -30,7 +24,10 @@ export const LogInPage = () => {
             <UserBox users={userList.list} selectUser={onUserSelect} />
           </LeftSide>
           <RightSide>
-            <img src={require("../Images/Illustration-LogIn.png")}></img>
+            <img
+              src="Images/Illustration-LogIn.png"
+              alt="login in illustration"
+            ></img>
           </RightSide>
         </>
       ) : (
@@ -63,5 +60,7 @@ const RightSide = styled.div`
     height: 100%;
     position: absolute;
     right: 0;
+    top: 0;
+    z-index: 1;
   }
 `;

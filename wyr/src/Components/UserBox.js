@@ -2,7 +2,6 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { Heading } from "./Heading.js";
 import { Paragraph } from "./Paragraph.js";
-import UserImg from "../Images/User1.png";
 
 export const UserBox = ({ users, selectUser }) => {
   return Object.keys(users).map((k) => {
