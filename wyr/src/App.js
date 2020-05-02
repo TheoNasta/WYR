@@ -40,23 +40,27 @@ function App() {
         <Switch>
           {user ? (
             [
-              <Route exact path="/">
+              <Route exact path="/" key="dashboard">
                 <Dashboard />
               </Route>,
-              <Route exact path="/add">
+              <Route exact path="/add" key="question">
                 <AddQuestion />
               </Route>,
-              <Route path="/leaderboard">
+              <Route path="/leaderboard" key="leaderboard">
                 <LeaderBoard />
               </Route>,
-              <Route exact path="/404">
+              <Route exact path="/404" key="notfound">
                 <NotFound />
               </Route>,
-              <Route path="/questions/:userID" component={Question} />,
-              <Redirect from="*" to="/404" />,
+              <Route
+                path="/questions/:userID"
+                component={Question}
+                key="question"
+              />,
+              <Redirect from="*" to="/404" key="redirect" />,
             ]
           ) : (
-            <Route path="/">
+            <Route path="/" key="login">
               <LogInPage />
             </Route>
           )}

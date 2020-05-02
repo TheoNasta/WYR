@@ -14,19 +14,19 @@ export const Header = () => {
       <Nav>
         <ul>
           <li>
-            <NavLink exact activeClassNam="active" to="/">
+            <NavLink exact activeClassName="active" to="/">
               {" "}
               Home
             </NavLink>
           </li>
           <li>
-            <NavLink activeClassNam="active" to="/add">
+            <NavLink activeClassName="active" to="/add">
               {" "}
               New Question{" "}
             </NavLink>
           </li>
           <li>
-            <NavLink activeClassNam="active" to="/leaderboard">
+            <NavLink activeClassName="active" to="/leaderboard">
               {" "}
               Leaderboard{" "}
             </NavLink>

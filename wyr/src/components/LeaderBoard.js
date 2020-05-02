@@ -21,7 +21,7 @@ export const LeaderBoard = () => {
         {order.map((k, i) => {
           const user = userList[k];
           console.log("This user:" + user);
-          return <LeaderBox user={user} position={i} />;
+          return <LeaderBox user={user} position={i} key={k} />;
         })}
       </LeftSide>
 

@@ -8,7 +8,9 @@ export const QuestionPrev = ({ question, avatar }) => {
     <QuestionPrevHolder>
       <Link to={`/questions/${question.id}`}>
         <img src={avatar} alt="user avatar" />
-        <span>{question.author} asks:</span>
+        <span>
+          {question.author} {question.date.toISOString()} asks:
+        </span>
         <Heading hstyle="light" color="black">
           Would you rather {question.optionOne.text} or...
         </Heading>

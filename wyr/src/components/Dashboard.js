@@ -11,32 +11,17 @@ export const Dashboard = () => {
   const questions = useSelector(
     (state) => state.QuestionsActionsReducer.questions
   );
+
   const userList = useSelector((state) => state.UsersActionsReducer.users);
-  const [filter, setFilter] = useState("answered");
+  const [filter, setFilter] = useState("unanswered");
 
-  const answered =
-    questions?.list &&
-    Object.keys(questions.list).filter((k) => {
-      const q = questions.list[k];
-      if (
-        q.optionOne.votes.includes(userId) ||
-        q.optionTwo.votes.includes(userId)
-      )
-        return true;
-      return false;
-    });
+  Object.keys(questions.list).forEach((k) => {
+    questions.list[k].date = new Date(questions.list[k].timestamp);
+  });
+
+  const answered = questions?.list && filterQuestions(questions, true, userId);
   const unanswered =
-    questions?.list &&
-    Object.keys(questions.list).filter((k) => {
-      const q = questions.list[k];
-      if (
-        q.optionOne.votes.includes(userId) ||
-        q.optionTwo.votes.includes(userId)
-      )
-        return false;
-      return true;
-    });
-
+    questions?.list && filterQuestions(questions, false, userId);
   const shownQuestions = filter === "answered" ? answered : unanswered;
 
   return (
@@ -76,6 +61,7 @@ export const Dashboard = () => {
                 <QuestionPrev
                   question={q}
                   avatar={userList?.list[q.author].avatarURL}
+                  key={k}
                 />
               );
             })}
@@ -86,6 +72,25 @@ export const Dashboard = () => {
       )}
     </DashboardWrapper>
   );
+};
+
+const filterQuestions = (questions, shouldIncludeAnswered, userId) => {
+  return Object.keys(questions.list)
+    .sort((a, b) => {
+      const dateA = questions.list[a].date;
+      const dateB = questions.list[b].date;
+      if (dateA > dateB) return -1;
+      return 1;
+    })
+    .filter((k) => {
+      const q = questions.list[k];
+      if (
+        q.optionOne.votes.includes(userId) ||
+        q.optionTwo.votes.includes(userId)
+      )
+        return shouldIncludeAnswered;
+      return !shouldIncludeAnswered;
+    });
 };
 
 const DashboardWrapper = styled.div`
