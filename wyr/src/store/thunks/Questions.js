@@ -1,4 +1,5 @@
 import { QuestionsActions } from "../actions/Questions";
+import { UsersActions } from "../actions/Users";
 import { _getQuestions, _saveQuestion, _saveQuestionAnswer } from "../../_Data";
 
 export const QuestionsThunks = {
@@ -15,6 +16,13 @@ export const QuestionsThunks = {
       dispatch(QuestionsActions.newQuestionStart());
       _saveQuestion(newQuestion).then((formattedQuestion) => {
         dispatch(QuestionsActions.newQuestionComplete(formattedQuestion));
+        console.log(formattedQuestion);
+        dispatch(
+          UsersActions.addUserQuestion(
+            formattedQuestion.author,
+            formattedQuestion.id
+          )
+        );
       });
     };
   },
@@ -25,6 +33,7 @@ export const QuestionsThunks = {
         dispatch(
           QuestionsActions.answerQuestionComplete(authedUser, qid, answer)
         );
+        dispatch(UsersActions.addUserAnswer(authedUser, qid, answer));
       });
     };
   },

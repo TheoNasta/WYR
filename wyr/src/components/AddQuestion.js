@@ -21,7 +21,7 @@ export const AddQuestion = () => {
 
   useEffect(() => {
     dispatch(QuestionsActions.resetAddQuestionForm());
-  }, []);
+  }, [dispatch]);
 
   const renderForm = () => {
     if (isQuestionSubmitted === "start") return <span> Loading...</span>;

@@ -21,17 +21,17 @@ import { NotFound } from "./components/404";
 function App() {
   const user = useSelector((state) => state.UsersActionsReducer.loggedInUser);
   const dispatch = useDispatch();
-  const questions = useSelector(
-    (state) => state.QuestionsActionsReducer.questions
-  );
-  const users = useSelector((state) => state.UsersActionsReducer.users);
+  // const questions = useSelector(
+  //   (state) => state.QuestionsActionsReducer.questions
+  // );
+  // const users = useSelector((state) => state.UsersActionsReducer.users);
 
   useEffect(() => {
-    if (questions?.loading !== "done" && users?.loading !== "done") {
-      dispatch(QuestionsThunks.loadQuestions());
-      dispatch(UserThunks.loadUsers());
-    }
-  }, []);
+    // if (questions?.loading !== "done" && users?.loading !== "done") {
+    dispatch(QuestionsThunks.loadQuestions());
+    dispatch(UserThunks.loadUsers());
+    // }
+  }, [dispatch]);
 
   return (
     <Router>
